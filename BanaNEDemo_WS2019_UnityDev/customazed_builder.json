@@ -1,0 +1,54 @@
+{
+  "properties": {
+    "buildTimeoutInMinutes": 240,
+    "vmProfile": {
+      "vmSize": "Standard_D2a_v4"
+    },
+    "source": {
+      "type": "PlatformImage",
+      "publisher": "MicrosoftWindowsServer",
+      "offer": "WindowsServer",
+      "sku": "2019-Datacenter-smalldisk",
+      "version": "latest"
+    },
+    "customize": [
+      {
+        "type": "File",
+        "name": "Download UnityLicensingClient.zip",
+        "sourceUri": "{{upload `assets/UnityLicensingClient.zip`}}",
+        "destination": "D:\\UnityLicensingClient.zip"
+      },
+      {
+        "type": "PowerShell",
+        "name": "Setup",
+        "runElevated": true,
+        "scriptUri": "{{upload `scripts/setup.ps1`}}"
+      },
+      {
+        "type": "File",
+        "name": "Copy tunnel.ps1",
+        "sourceUri": "{{upload `assets/tunnel.ps1`}}",
+        "destination": "C:\\UnityLicensingClient\\tunnel.ps1"
+      },
+      {
+        "type": "File",
+        "name": "Copy services-config.json",
+        "sourceUri": "{{upload `assets/services-config.json`}}",
+        "destination": "C:\\ProgramData\\Unity\\config\\services-config.json"
+      },
+      {
+        "type": "WindowsUpdate",
+        "searchCriteria": "IsInstalled=0",
+        "filters": [
+          "exclude:$_.Title -like '*Preview*'",
+          "include:$true"
+        ],
+        "updateLimit": 20
+      },
+      {
+        "type": "WindowsRestart",
+        "restartTimeout": "5m"
+      }
+    ]
+  }
+}
