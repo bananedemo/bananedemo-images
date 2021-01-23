@@ -8,7 +8,7 @@
       "type": "PlatformImage",
       "publisher": "MicrosoftWindowsServer",
       "offer": "WindowsServer",
-      "sku": "2019-Datacenter-smalldisk",
+      "sku": "2019-Datacenter",
       "version": "latest"
     },
     "customize": [
@@ -26,9 +26,9 @@
       },
       {
         "type": "File",
-        "name": "Copy tunnel.ps1",
-        "sourceUri": "{{upload `assets/tunnel.ps1`}}",
-        "destination": "C:\\UnityLicensingClient\\tunnel.ps1"
+        "name": "Copy UnityTunnel.ps1",
+        "sourceUri": "{{upload `assets/UnityTunnel.ps1`}}",
+        "destination": "C:\\UnityLicensingClient\\UnityTunnel.ps1"
       },
       {
         "type": "File",
